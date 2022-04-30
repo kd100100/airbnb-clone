@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Hero from "../components/Hero";
-import Header from "../components/Header.jsx";
+import Header from "../components/Header";
 import { SmallCard } from "../components/SmallCard";
 import { MediumCard } from "../components/MediumCard";
 import { LargeCard } from "../components/LargeCard";
