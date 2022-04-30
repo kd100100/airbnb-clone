@@ -24,15 +24,6 @@ import {
 } from "date-fns";
 import { useRouter } from "next/router";
 
-interface HeaderProps {
-	placeholder?: string;
-}
-
-interface IsSelectedRange {
-	startDate: { getTime: () => number };
-	endDate: { getTime: () => number };
-}
-
 const defineds = {
 	endOfWeek: endOfWeek(new Date()),
 	startOfToday: startOfDay(new Date()),
@@ -55,7 +46,7 @@ const customStaticRanges = [
 				endDate: defineds.endOfToday,
 			};
 		},
-		isSelected: (range: IsSelectedRange) =>
+		isSelected: (range) =>
 			range.startDate.getTime() === defineds.startOfToday.getTime() &&
 			range.endDate.getTime() === defineds.endOfToday.getTime(),
 	},
@@ -67,7 +58,7 @@ const customStaticRanges = [
 				endDate: defineds.endOfTomorrow,
 			};
 		},
-		isSelected: (range: IsSelectedRange) =>
+		isSelected: (range) =>
 			range.startDate.getTime() === defineds.startOfTomorrow.getTime() &&
 			range.endDate.getTime() === defineds.endOfTomorrow.getTime(),
 	},
@@ -79,7 +70,7 @@ const customStaticRanges = [
 				endDate: defineds.endOfWeek,
 			};
 		},
-		isSelected: (range: IsSelectedRange) =>
+		isSelected: (range) =>
 			range.startDate.getTime() === defineds.startOfToday.getTime() &&
 			range.endDate.getTime() === defineds.endOfWeek.getTime(),
 	},
@@ -91,7 +82,7 @@ const customStaticRanges = [
 				endDate: defineds.endOfNextWeek,
 			};
 		},
-		isSelected: (range: IsSelectedRange) =>
+		isSelected: (range) =>
 			range.startDate.getTime() === defineds.startOfNextWeek.getTime() &&
 			range.endDate.getTime() === defineds.endOfNextWeek.getTime(),
 	},
@@ -103,7 +94,7 @@ const customStaticRanges = [
 				endDate: defineds.endOfMonth,
 			};
 		},
-		isSelected: (range: IsSelectedRange) =>
+		isSelected: (range) =>
 			range.startDate.getTime() === defineds.startOfToday.getTime() &&
 			range.endDate.getTime() === defineds.endOfMonth.getTime(),
 	},
@@ -115,13 +106,15 @@ const customStaticRanges = [
 				endDate: defineds.endOfNextMonth,
 			};
 		},
-		isSelected: (range: IsSelectedRange) =>
+		isSelected: (range) =>
 			range.startDate.getTime() === defineds.startOfNextMonth.getTime() &&
 			range.endDate.getTime() === defineds.endOfNextMonth.getTime(),
 	},
 ];
 
-const Header: React.FC<HeaderProps> = ({ placeholder }) => {
+const Header = (props) => {
+	const placeholder = props.placeholder || "Start your search";
+
 	const [searchInput, setSearchInput] = useState("");
 	const [numberOfGuests, setNumberOfGuests] = useState(1);
 	const [startDate, setStartDate] = useState(new Date());
@@ -134,9 +127,7 @@ const Header: React.FC<HeaderProps> = ({ placeholder }) => {
 		key: "selection",
 	};
 
-	const handleSelect = (ranges: {
-		selection: { startDate: Date; endDate: Date };
-	}) => {
+	const handleSelect = (ranges) => {
 		setStartDate(ranges.selection.startDate);
 		setEndDate(ranges.selection.endDate);
 	};
@@ -174,7 +165,7 @@ const Header: React.FC<HeaderProps> = ({ placeholder }) => {
 			<div className="flex items-center rounded-full py-2 md:border-2 md:shadow-md">
 				<input
 					type="text"
-					placeholder={placeholder || "Start your search"}
+					placeholder={placeholder}
 					className="flex-grow bg-transparent pl-5 text-sm text-gray-600 placeholder-gray-400 outline-none"
 					value={searchInput}
 					onChange={(e) => setSearchInput(e.target.value)}
