@@ -6,6 +6,7 @@ import React from "react";
 import { Footer } from "../../components/Footer";
 import Header from "../../components/Header";
 import InfoCard from "../../components/InfoCard";
+import Map from "../../components/Mapbox.jsx";
 
 interface SearchProps {
 	searchResults: {
@@ -73,6 +74,10 @@ const Search: NextPage<SearchProps> = ({ searchResults }) => {
 						))}
 					</div>
 				</section>
+
+				<aside className="relative hidden min-w-[600px] overflow-hidden xl:inline-flex">
+					<Map searchResults={searchResults} />
+				</aside>
 			</main>
 
 			<Footer />
