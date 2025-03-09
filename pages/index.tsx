@@ -27,10 +27,10 @@ const Home: NextPage<HomeProps> = ({ exploreData, cardsData }) => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Header />
-			<Hero />
+			<Header className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500" />
+			<Hero className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" />
 
-			<main className="mx-auto max-w-7xl px-8 sm:px-16 ">
+			<main className="max-w-7xl mx-auto px-8 sm:px-16 ">
 				<section className="pt-6 ">
 					<h2 className="pb-5 text-4xl font-semibold">
 						Explore Nearby
